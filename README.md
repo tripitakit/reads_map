@@ -123,9 +123,6 @@ ReadsMap is licensed under the GNU General Public License v3.0 (GPL-3.0).
 
 See [COPYING](COPYING) for the full text of the license.
 
-## Author
-
-Patrick De Marta ([@tripitakit](https://github.com/tripitakit))
 
 ## Contributing
 
@@ -150,7 +147,6 @@ De Marta, P. (2025). ReadsMap: A tool for visualizing SAM/BAM alignments.
 https://github.com/tripitakit/reads_map
 ```
 
-## Contact
+## Contacts
 
-Author: Patrick De Marta  
-Email: patrick.demarta@gmail.com
+Patrick De Marta - patrick.demarta@gmail.com
