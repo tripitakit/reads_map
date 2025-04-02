@@ -1,12 +1,13 @@
 # ReadsMap
 
-ReadsMap is an Elixir CLI tool that visualizes reads aligned to a reference sequence. It takes a SAM/BAM file and a FASTA reference file as input and produces either HTML or text output formats, allowing for easy visualization of sequence alignments.
-This tool has been developed to test the functionalities of the [sam_parser](https://github.com/tripitakit/sam_parser.git) library, which is used to read and parse the input SAM/BAM files, but can be helpful in visualizing and documenting the alignment of reads to a reference sequence.
+ReadsMap is an Elixir CLI tool that visualizes reads aligned to a reference sequence. It takes a SAM/BAM file and a FASTA reference file as input and produces text, HTML or FASTA output formats, allowing for easy visualization and analysis of sequence alignments.
+This tool has been developed mainly to test the functionalities of the [sam_parser](https://github.com/tripitakit/sam_parser.git) library, which is used to read and parse the input SAM/BAM files, but it can be useful in visualizing and documenting the alignment of reads to a reference sequence.
 
 ## Features
 
 - Creates text-based visualization for terminal display or text files (default)
 - Generates HTML visualizations with color-coded nucleotides
+- Produces FASTA format output with properly aligned sequences
 - Aligns reads to the reference sequence based on CIGAR strings
 - Shows reference sequence at the top and reads aligned below
 - Displays position markers for easy location reference
@@ -63,20 +64,24 @@ export PATH="$PATH:/path/to/reads_map"
 # Generate HTML output
 ./reads_map [SAM/BAM file] [Reference FASTA] -f html
 
+# Generate FASTA output
+./reads_map [SAM/BAM file] [Reference FASTA] -f fasta
+
 # Specify custom output file
 ./reads_map [SAM/BAM file] [Reference FASTA] -o output_file.txt
 ```
 
 ### Options
 
-- `-o, --output PATH`: Path to save output (default: "output.txt" or "output.html")
-- `-f, --format TYPE`: Output format: "txt" or "html" (default: "txt")
+- `-o, --output PATH`: Path to save output (default: "output.txt", "output.html", or "output.fasta")
+- `-f, --format TYPE`: Output format: "txt", "html", or "fasta" (default: "txt")
 - `-h, --help`: Display help message
 
-### Example
+### Examples
 
 ```bash
-./reads_map input/sample.bam input/reference.fasta -f html -o alignment.html
+./reads_map sample.bam reference.fasta -f html -o alignment.html
+./reads_map sample.bam reference.fasta -f fasta -o alignment.fasta
 ```
 
 ## Text Output
@@ -95,6 +100,15 @@ The HTML output provides a visually appealing representation of the alignment:
 - Read names and positions displayed
 - CIGAR string information for each read
 - Position markers to easily locate positions in the sequence
+
+## FASTA Output
+
+The FASTA output provides a standard bioinformatics format representation of the alignment:
+- Reference sequence with the proper FASTA header
+- All aligned reads in FASTA format with their positions and CIGAR strings in the header lines
+- Sequences wrapped at 60 characters per line for readability
+- Gap characters (-) maintained for alignment consistency
+- Compatible with other bioinformatics tools for further analysis
 
 ## Dependencies
 

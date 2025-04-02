@@ -32,12 +32,14 @@ defmodule ReadsMap.CLI do
       "html" -> :html
       "text" -> :txt
       "txt" -> :txt
+      "fasta" -> :fasta
       _ -> :txt
     end
 
     # Set default output based on format if not provided
     output = opts[:output] || case format do
       :html -> "output.html"
+      :fasta -> "output.fasta"
       :txt -> "output.txt"
     end
 
@@ -63,12 +65,13 @@ defmodule ReadsMap.CLI do
     Usage: reads_map [SAM/BAM file] [Reference FASTA] [options]
 
     Options:
-      -o, --output PATH   Path to save output (default: "output.txt" or "output.html")
-      -f, --format TYPE   Output format: "txt" or "html" (default: "txt")
+      -o, --output PATH   Path to save output (default: "output.txt", "output.html", or "output.fasta")
+      -f, --format TYPE   Output format: "txt", "html", or "fasta" (default: "txt")
       -h, --help          Display this help message
 
-    Example:
+    Examples:
       reads_map input/sample.bam input/reference.fasta -f html -o alignment.html
+      reads_map input/sample.bam input/reference.fasta -f fasta -o aligned.fasta
     """)
   end
 end

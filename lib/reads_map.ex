@@ -2,11 +2,12 @@ defmodule ReadsMap do
   @moduledoc """
   ReadsMap generates visualizations of reads aligned to a reference sequence.
   It takes a SAM/BAM file and a FASTA reference file as input and can produce
-  either HTML or text output formats.
+  HTML, text, or FASTA output formats.
   """
 
   alias ReadsMap.RenderHTML
   alias ReadsMap.RenderTxt
+  alias ReadsMap.RenderFasta
   alias ReadsMap.FastaParser
 
   @doc """
@@ -16,8 +17,8 @@ defmodule ReadsMap do
 
     * `sam_path` - Path to the SAM/BAM file
     * `ref_path` - Path to the FASTA reference file
-    * `output_path` - Path to save the output file (optional, defaults to "output.txt" or "output.html")
-    * `format` - Output format, either :html or :txt (optional, defaults to :txt)
+    * `output_path` - Path to save the output file (optional, defaults to "output.txt", "output.html", or "output.fasta")
+    * `format` - Output format, either :html, :txt, or :fasta (optional, defaults to :txt)
 
   ## Returns
 
@@ -28,6 +29,7 @@ defmodule ReadsMap do
     # Set default output path based on format if not provided
     output_path = output_path || case format do
       :html -> "output.html"
+      :fasta -> "output.fasta"
       :txt -> "output.txt"
       _ -> "output.txt"
     end
@@ -44,8 +46,9 @@ defmodule ReadsMap do
       # Generate output based on format
       content = case format do
         :html -> RenderHTML.generate_html(reference, reads)
+        :fasta -> RenderFasta.generate_fasta(reference, reads)
         :txt -> RenderTxt.generate_txt(reference, reads, sam_path, ref_path)
-        _ -> RenderHTML.generate_html(reference, reads)
+        _ -> RenderTxt.generate_txt(reference, reads, sam_path, ref_path)
       end
 
       case File.write(output_path, content) do
