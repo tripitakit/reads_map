@@ -96,7 +96,7 @@ The FASTA output provides a standard bioinformatics format representation of the
 
 ## Text Output
 
-The text output provides a simple representation suitable for terminals or text editors:
+The text output provides a simple representation suitable for text editors:
 - Position markers above the reference sequence
 - Reference sequence with read alignments below
 - Read names, positions, and CIGAR strings displayed
