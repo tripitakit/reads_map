@@ -1,6 +1,7 @@
 # ReadsMap
 
-ReadsMap is a tool that visualizes reads aligned to a reference sequence. It takes a SAM/BAM file and a FASTA reference file as input and produces either HTML or text output formats, allowing for easy visualization of sequence alignments.
+ReadsMap is an Elixir CLI tool that visualizes reads aligned to a reference sequence. It takes a SAM/BAM file and a FASTA reference file as input and produces either HTML or text output formats, allowing for easy visualization of sequence alignments.
+This tool has been developed to test the functionalities of the [sam_parser](https://github.com/tripitakit/sam_parser.git) library, which is used to read and parse the input SAM/BAM files, but can be helpful in visualizing and documenting the alignment of reads to a reference sequence.
 
 ![ReadsMap Logo](https://github.com/tripitakit/reads_map/raw/main/assets/logo.png)
 
@@ -8,15 +9,14 @@ ReadsMap is a tool that visualizes reads aligned to a reference sequence. It tak
 
 - Creates text-based visualization for terminal display or text files (default)
 - Generates HTML visualizations with color-coded nucleotides
-  - A is represented in red
-  - C is represented in green
-  - G is represented in blue
-  - T is represented in yellow
-  - Gaps (-) are represented in gray
 - Aligns reads to the reference sequence based on CIGAR strings
 - Shows reference sequence at the top and reads aligned below
 - Displays position markers for easy location reference
 - Shows CIGAR string information for each read
+
+## Current Limitations
+
+- **Read Orientation**: Currently, ReadsMap only displays reads that are in the same orientation as the reference sequence (forward strand). Reads aligned to the reverse strand are filtered out in the current version. This limitation will be addressed in a future update to display reads in both orientations.
 
 ## Installation
 
@@ -100,10 +100,10 @@ The HTML output provides a visually appealing representation of the alignment:
 
 ## Dependencies
 
-ReadsMap relies on two primary dependencies:
+ReadsMap relies on one primary dependencies:
 
 - [sam_parser](https://github.com/tripitakit/sam_parser.git) - For reading and parsing SAM/BAM files
-- [bio_elixir](https://github.com/tripitakit/bio_elixir.git) - For reading and parsing FASTA reference files
+
 
 ## License
 
@@ -134,7 +134,7 @@ If you encounter any problems or have suggestions, please [open an issue](https:
 If you use ReadsMap in your research, please cite:
 
 ```
-De Marta, P. (2025). ReadsMap: A tool for visualizing sequence alignments.
+De Marta, P. (2025). ReadsMap: A tool for visualizing SAM/BAM sequence alignments.
 https://github.com/tripitakit/reads_map
 ```
 
