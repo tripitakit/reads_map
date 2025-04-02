@@ -27,13 +27,13 @@ defmodule ReadsMap.CLI do
   end
 
   defp process_args([sam_path, ref_path], opts) do
-    # Get format from options, default to txt
+    # Get format from options, default to fasta
     format = case opts[:format] do
       "html" -> :html
       "text" -> :txt
       "txt" -> :txt
       "fasta" -> :fasta
-      _ -> :txt
+      _ -> :fasta
     end
 
     # Set default output based on format if not provided
@@ -66,12 +66,12 @@ defmodule ReadsMap.CLI do
 
     Options:
       -o, --output PATH   Path to save output (default: "output.txt", "output.html", or "output.fasta")
-      -f, --format TYPE   Output format: "txt", "html", or "fasta" (default: "txt")
+      -f, --format TYPE   Output format: "txt", "html", or "fasta" (default: "fasta")
       -h, --help          Display this help message
 
     Examples:
       reads_map input/sample.bam input/reference.fasta -f html -o alignment.html
-      reads_map input/sample.bam input/reference.fasta -f fasta -o aligned.fasta
+      reads_map input/sample.bam input/reference.fasta -o aligned.fasta
     """)
   end
 end

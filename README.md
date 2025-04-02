@@ -1,13 +1,13 @@
 # ReadsMap
 
-ReadsMap is an Elixir CLI tool that visualizes reads aligned to a reference sequence. It takes a SAM/BAM file and a FASTA reference file as input and produces text, HTML or FASTA output formats, allowing for easy visualization and analysis of sequence alignments.
+ReadsMap is an Elixir CLI tool that visualizes reads aligned to a reference sequence. It takes a SAM/BAM file and a FASTA reference file as input and produces FASTA, text, or HTML output formats, allowing for easy visualization and analysis of sequence alignments.
 This tool has been developed mainly to test the functionalities of the [sam_parser](https://github.com/tripitakit/sam_parser.git) library, which is used to read and parse the input SAM/BAM files, but it can be useful in visualizing and documenting the alignment of reads to a reference sequence.
 
 ## Features
 
-- Creates text-based visualization for terminal display or text files (default)
+- Creates FASTA format output with properly aligned sequences (default)
+- Generates text-based visualization
 - Generates HTML visualizations with color-coded nucleotides
-- Produces FASTA format output with properly aligned sequences
 - Aligns reads to the reference sequence based on CIGAR strings
 - Shows reference sequence at the top and reads aligned below
 - Displays position markers for easy location reference
@@ -15,7 +15,7 @@ This tool has been developed mainly to test the functionalities of the [sam_pars
 
 ## Current Limitations
 
-- **Read Orientation**: Currently, ReadsMap only displays reads that are in the same orientation as the reference sequence (forward strand). Reads aligned to the reverse strand are filtered out in the current version. This limitation will be addressed in a future update to display reads in both orientations.
+- **Reads Orientation**: Currently, ReadsMap only displays reads that are in the same orientation as the reference sequence. Reads aligned to the antisense strand are filtered out in the current version. This limitation will be addressed in a future update to display reads in both orientations.
 
 ## Installation
 
@@ -58,31 +58,41 @@ export PATH="$PATH:/path/to/reads_map"
 # Show help
 ./reads_map --help
 
-# Generate text output (default)
+# Generate FASTA output (default)
 ./reads_map [SAM/BAM file] [Reference FASTA]
+
+# Generate text output
+./reads_map [SAM/BAM file] [Reference FASTA] -f txt
 
 # Generate HTML output
 ./reads_map [SAM/BAM file] [Reference FASTA] -f html
 
-# Generate FASTA output
-./reads_map [SAM/BAM file] [Reference FASTA] -f fasta
-
 # Specify custom output file
-./reads_map [SAM/BAM file] [Reference FASTA] -o output_file.txt
+./reads_map [SAM/BAM file] [Reference FASTA] -o output_file.fasta
 ```
 
 ### Options
 
-- `-o, --output PATH`: Path to save output (default: "output.txt", "output.html", or "output.fasta")
-- `-f, --format TYPE`: Output format: "txt", "html", or "fasta" (default: "txt")
+- `-o, --output PATH`: Path to save output (default: "output.fasta", "output.txt", or "output.html")
+- `-f, --format TYPE`: Output format: "fasta", "txt", or "html" (default: "fasta")
 - `-h, --help`: Display help message
 
 ### Examples
 
 ```bash
+./reads_map sample.bam reference.fasta -o alignment.fasta
 ./reads_map sample.bam reference.fasta -f html -o alignment.html
-./reads_map sample.bam reference.fasta -f fasta -o alignment.fasta
+./reads_map sample.bam reference.fasta -f txt -o alignment.txt
 ```
+
+## FASTA Output
+
+The FASTA output provides a standard bioinformatics format representation of the alignment:
+- Reference sequence with the proper FASTA header
+- All aligned reads in FASTA format with their positions and CIGAR strings in the header lines
+- Sequences wrapped at 60 characters per line for readability
+- Gap characters (-) maintained for alignment consistency
+- Compatible with other bioinformatics tools for further analysis
 
 ## Text Output
 
@@ -100,15 +110,6 @@ The HTML output provides a visually appealing representation of the alignment:
 - Read names and positions displayed
 - CIGAR string information for each read
 - Position markers to easily locate positions in the sequence
-
-## FASTA Output
-
-The FASTA output provides a standard bioinformatics format representation of the alignment:
-- Reference sequence with the proper FASTA header
-- All aligned reads in FASTA format with their positions and CIGAR strings in the header lines
-- Sequences wrapped at 60 characters per line for readability
-- Gap characters (-) maintained for alignment consistency
-- Compatible with other bioinformatics tools for further analysis
 
 ## Dependencies
 

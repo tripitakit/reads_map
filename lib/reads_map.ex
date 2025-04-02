@@ -17,21 +17,21 @@ defmodule ReadsMap do
 
     * `sam_path` - Path to the SAM/BAM file
     * `ref_path` - Path to the FASTA reference file
-    * `output_path` - Path to save the output file (optional, defaults to "output.txt", "output.html", or "output.fasta")
-    * `format` - Output format, either :html, :txt, or :fasta (optional, defaults to :txt)
+    * `output_path` - Path to save the output file (optional, defaults to "output.fasta", "output.html", or "output.txt")
+    * `format` - Output format, either :html, :txt, or :fasta (optional, defaults to :fasta)
 
   ## Returns
 
     * `{:ok, output_path}` - If the visualization was successfully generated
     * `{:error, reason}` - If there was an error processing the files
   """
-  def process(sam_path, ref_path, output_path \\ nil, format \\ :txt) do
+  def process(sam_path, ref_path, output_path \\ nil, format \\ :fasta) do
     # Set default output path based on format if not provided
     output_path = output_path || case format do
       :html -> "output.html"
       :fasta -> "output.fasta"
       :txt -> "output.txt"
-      _ -> "output.txt"
+      _ -> "output.fasta"
     end
 
     with {:ok, reference} <- load_reference(ref_path),
@@ -48,7 +48,7 @@ defmodule ReadsMap do
         :html -> RenderHTML.generate_html(reference, reads)
         :fasta -> RenderFasta.generate_fasta(reference, reads)
         :txt -> RenderTxt.generate_txt(reference, reads, sam_path, ref_path)
-        _ -> RenderTxt.generate_txt(reference, reads, sam_path, ref_path)
+        _ -> RenderFasta.generate_fasta(reference, reads)
       end
 
       case File.write(output_path, content) do
