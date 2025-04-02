@@ -136,3 +136,7 @@ De Marta, P. (2025). ReadsMap: A tool for visualizing SAM/BAM alignments.
 https://github.com/tripitakit/reads_map
 ```
 
+## Contact
+
+Author: Patrick De Marta  
+Email: patrick.demarta@gmail.com
