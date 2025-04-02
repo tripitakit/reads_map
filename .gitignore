@@ -6,4 +6,4 @@
 erl_crash.dump
 *.ez
 reads_map-*.tar
-
+reads_map
