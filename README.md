@@ -100,7 +100,7 @@ The HTML output provides a visually appealing representation of the alignment:
 
 ## Dependencies
 
-ReadsMap relies on one primary dependencies:
+ReadsMap relies on one dependency:
 
 - [sam_parser](https://github.com/tripitakit/sam_parser.git) - For reading and parsing SAM/BAM files
 
@@ -134,7 +134,7 @@ If you encounter any problems or have suggestions, please [open an issue](https:
 If you use ReadsMap in your research, please cite:
 
 ```
-De Marta, P. (2025). ReadsMap: A tool for visualizing SAM/BAM sequence alignments.
+De Marta, P. (2025). ReadsMap: A tool for visualizing SAM/BAM alignments.
 https://github.com/tripitakit/reads_map
 ```
 
