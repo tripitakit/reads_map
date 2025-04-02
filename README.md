@@ -114,7 +114,7 @@ The FASTA output provides a standard bioinformatics format representation of the
 
 ReadsMap relies on one dependency:
 
-- [sam_parser](https://github.com/tripitakit/sam_parser.git) - For reading and parsing SAM/BAM files
+- [sam_parser](https://github.com/tripitakit/sam_parser.git) - An Elixir library for parsing and manipulating SAM (Sequence Alignment/Map) and BAM (Binary Alignment/Map) format files according to the SAM format specification v1.6
 
 
 ## License
