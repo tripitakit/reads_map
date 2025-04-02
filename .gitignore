@@ -1,5 +1,5 @@
 /_build/
-/_elixir_ls/
+/.elixir_ls/
 /cover/
 /deps/
 /.github/
