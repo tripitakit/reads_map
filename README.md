@@ -3,8 +3,6 @@
 ReadsMap is an Elixir CLI tool that visualizes reads aligned to a reference sequence. It takes a SAM/BAM file and a FASTA reference file as input and produces either HTML or text output formats, allowing for easy visualization of sequence alignments.
 This tool has been developed to test the functionalities of the [sam_parser](https://github.com/tripitakit/sam_parser.git) library, which is used to read and parse the input SAM/BAM files, but can be helpful in visualizing and documenting the alignment of reads to a reference sequence.
 
-![ReadsMap Logo](https://github.com/tripitakit/reads_map/raw/main/assets/logo.png)
-
 ## Features
 
 - Creates text-based visualization for terminal display or text files (default)
