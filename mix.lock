@@ -1,5 +1,5 @@
 %{
   "bio_elixir": {:git, "https://github.com/tripitakit/bio_elixir.git", "eda608f4efb13a9ec9654114c1df4bea14303d2b", []},
   "parallel": {:hex, :parallel, "0.0.3", "d1c9a03f0fd6c85ba174938b9823db51e01a68f9f0e76e3f3e11989cbeb607e7", [:mix], [], "hexpm", "d9b5e98c1892f5376b4dfa28c48a3a17029f86a28d1f9ec2f7c1a2747f256a4d"},
-  "sam_parser": {:git, "https://github.com//tripitakit/sam_parser.git", "a174ac57bfd9c2246a74aad6c7887d30b97bbe98", []},
+  "sam_parser": {:git, "https://github.com/tripitakit/sam_parser.git", "a174ac57bfd9c2246a74aad6c7887d30b97bbe98", []},
 }

@@ -7,7 +7,8 @@ defmodule ReadsMap.MixProject do
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      escript: escript()
     ]
   end
 
@@ -18,11 +19,19 @@ defmodule ReadsMap.MixProject do
     ]
   end
 
+  # Escript configuration for CLI application
+  defp escript do
+    [
+      main_module: ReadsMap.CLI,
+      name: "reads_map",
+      comment: "ReadsMap - SAM/BAM to HTML/TXT alignment visualization"
+    ]
+  end
+
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:bio_elixir, git: "https://github.com/tripitakit/bio_elixir.git"},
-      {:sam_parser, git: "https://github.com//tripitakit/sam_parser.git"}
+      {:sam_parser, git: "https://github.com/tripitakit/sam_parser.git"}
     ]
   end
 end

@@ -7,28 +7,29 @@ defmodule ReadsMap do
 
   alias ReadsMap.RenderHTML
   alias ReadsMap.RenderTxt
+  alias ReadsMap.FastaParser
 
   @doc """
-  Main function that processes the SAM/BAM file and FASTA reference to produce a visualization.
+  Processes the SAM/BAM file and FASTA reference to produce a visualization.
 
   ## Parameters
 
     * `sam_path` - Path to the SAM/BAM file
     * `ref_path` - Path to the FASTA reference file
-    * `output_path` - Path to save the output file (optional, defaults to "output.html" or "output.txt")
-    * `format` - Output format, either :html or :txt (optional, defaults to :html)
+    * `output_path` - Path to save the output file (optional, defaults to "output.txt" or "output.html")
+    * `format` - Output format, either :html or :txt (optional, defaults to :txt)
 
   ## Returns
 
     * `{:ok, output_path}` - If the visualization was successfully generated
     * `{:error, reason}` - If there was an error processing the files
   """
-  def main(sam_path, ref_path, output_path \\ nil, format \\ :html) do
+  def process(sam_path, ref_path, output_path \\ nil, format \\ :txt) do
     # Set default output path based on format if not provided
     output_path = output_path || case format do
       :html -> "output.html"
       :txt -> "output.txt"
-      _ -> "output.html"
+      _ -> "output.txt"
     end
 
     with {:ok, reference} <- load_reference(ref_path),
@@ -55,12 +56,9 @@ defmodule ReadsMap do
   end
 
   defp load_reference(ref_path) do
-    try do
-      [first_seq | _] = BioElixir.SeqIO.read_fasta_file(ref_path)
-      %{display_id: _id, seq: seq} = first_seq
-      {:ok, seq}
-    rescue
-      e -> {:error, "Failed to parse reference file: #{inspect(e)}"}
+    case FastaParser.read_fasta(ref_path) do
+      {:ok, %{seq: seq}} -> {:ok, seq}
+      {:error, reason} -> {:error, reason}
     end
   end
 
@@ -152,51 +150,6 @@ defmodule ReadsMap do
         full_seq <> String.duplicate("-", ref_length - String.length(full_seq))
       true ->
         full_seq
-    end
-  end
-
-  @doc """
-  Entry point for command line interface.
-  """
-  def run(args) do
-    {opts, args, _} = OptionParser.parse(args,
-      strict: [output: :string, format: :string],
-      aliases: [o: :output, f: :format]
-    )
-
-    # Get format from options, default to html
-    format = case opts[:format] do
-      "txt" -> :txt
-      "text" -> :txt
-      "html" -> :html
-      _ -> :html
-    end
-
-    # Set default output based on format if not provided
-    output = opts[:output] || case format do
-      :html -> "output.html"
-      :txt -> "output.txt"
-    end
-
-    case args do
-      [sam_path, ref_path] ->
-        case main(sam_path, ref_path, output, format) do
-          {:ok, path} ->
-            IO.puts("#{String.upcase(to_string(format))} visualization successfully generated at: #{path}")
-            :ok
-          {:error, reason} ->
-            IO.puts("Error: #{reason}")
-            :error
-        end
-      _ ->
-        IO.puts("""
-        Usage: mix run -e 'ReadsMap.run(System.argv())' -- [SAM/BAM file] [Reference FASTA] [options]
-
-        Options:
-          -o, --output PATH   Path to save output (default: "output.html" or "output.txt")
-          -f, --format TYPE   Output format: "html" or "txt" (default: "html")
-        """)
-        :error
     end
   end
 end
